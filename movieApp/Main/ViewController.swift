@@ -8,12 +8,24 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
     }
-
+    @IBAction func verUsr(_ sender: Any) {
+        
+        if let value = AppDelegate.getUserDefaultArrayStringForKey("moviesStored"){
+        //if let value = UserDefaults.data(forKey: "Llave"){
+            
+           // print(value)
+        } else{
+            print("error")
+        }
+    }
+    
     @IBAction func searchBtnPressed(_ sender: Any) {
         
     }

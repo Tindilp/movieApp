@@ -16,6 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         return true
     }
+    
+    static func userDefaultAlreadyExist(_ key: String) -> Bool {
+        return UserDefaults.standard.object(forKey: key) != nil
+    }
+    
+    static func getUserDefaultArrayStringForKey(_ key: String) -> [String]?  {
+        UserDefaults.standard.array(forKey: key ) as? [String]
+    }
 
     // MARK: UISceneSession Lifecycle
 
