@@ -19,6 +19,7 @@
 		CB645A6F276640BA008765F9 /* webService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB645A6E276640BA008765F9 /* webService.swift */; };
 		CB645A73276643B4008765F9 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB645A72276643B4008765F9 /* Genre.swift */; };
 		CB645A772766502E008765F9 /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB645A762766502E008765F9 /* SearchViewCell.swift */; };
+		CB8071F0276C3A1400C192D6 /* DataCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8071EF276C3A1400C192D6 /* DataCollectionViewCell.swift */; };
 		CBFA1BB22769AA5D0017689D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFA1BB12769AA5D0017689D /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		CB645A6E276640BA008765F9 /* webService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = webService.swift; sourceTree = "<group>"; };
 		CB645A72276643B4008765F9 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		CB645A762766502E008765F9 /* SearchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
+		CB8071EF276C3A1400C192D6 /* DataCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCollectionViewCell.swift; sourceTree = "<group>"; };
 		CBFA1BB12769AA5D0017689D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -92,7 +94,7 @@
 		CB645A4B276626CC008765F9 /* movieApp */ = {
 			isa = PBXGroup;
 			children = (
-				CBFA1BB12769AA5D0017689D /* DetailViewController.swift */,
+				CB8071F1276C524100C192D6 /* DetailView */,
 				CB645A67276637C6008765F9 /* SearchView */,
 				CB645A66276637BF008765F9 /* Main */,
 				CB645A642766379E008765F9 /* Entities */,
@@ -136,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				CB645A50276626CC008765F9 /* ViewController.swift */,
+				CB8071EF276C3A1400C192D6 /* DataCollectionViewCell.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -147,6 +150,14 @@
 				CB645A762766502E008765F9 /* SearchViewCell.swift */,
 			);
 			path = SearchView;
+			sourceTree = "<group>";
+		};
+		CB8071F1276C524100C192D6 /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				CBFA1BB12769AA5D0017689D /* DetailViewController.swift */,
+			);
+			path = DetailView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,6 +279,7 @@
 				CB645A51276626CC008765F9 /* ViewController.swift in Sources */,
 				CB645A6F276640BA008765F9 /* webService.swift in Sources */,
 				CB645A4D276626CC008765F9 /* AppDelegate.swift in Sources */,
+				CB8071F0276C3A1400C192D6 /* DataCollectionViewCell.swift in Sources */,
 				CB645A6127662E3D008765F9 /* SearchViewController.swift in Sources */,
 				CB645A69276637F5008765F9 /* Show.swift in Sources */,
 				CB645A772766502E008765F9 /* SearchViewCell.swift in Sources */,
