@@ -11,7 +11,7 @@ import UIKit
 class DetailViewController: UIViewController{
     
     var show: Show?
-    
+        
     var strUrl:String = "https://image.tmdb.org/t/p/w500"
     
     @IBOutlet weak var backgroundColor: UIImageView!
@@ -24,7 +24,7 @@ class DetailViewController: UIViewController{
     @IBOutlet weak var suscrpitionBtn: UIButton!
     @IBOutlet weak var backBtn: UIButton!
      
-    
+    var color:UIColor = .clear
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,15 +48,12 @@ class DetailViewController: UIViewController{
         posterImage.layer.shadowColor = UIColor.black.cgColor
         posterImage.layer.shadowOffset = CGSize.zero
         posterImage.layer.shadowRadius = 10
-        //posterImageposterImage.layer.shadowOffset = CGSizeMa
         posterImage.layer.shadowOpacity = 1
-        //posterImage.backgroundColor = UIColor.whiteColor()
         
         guard let imageView = posterImage.image else {return}
-        let color = imageView.averageColor ?? .black
-        print("color: \(color)")
+        color = imageView.averageColor ?? .black
     
-        backgroundColor.backgroundColor = color.withAlphaComponent(0.5)
+        backgroundColor.backgroundColor = color.withAlphaComponent(0.7)
         var background:String
         if show?.backdrop_path != nil {
             background = "\(strUrl)\(show?.backdrop_path ?? " ")"
@@ -64,22 +61,13 @@ class DetailViewController: UIViewController{
             background = "\(strUrl)\(show?.poster_path ?? " ")" }
         if let imageUrl = URL(string: background){
             backgroundImage.kf.setImage(with: imageUrl)}
-        backgroundImage.image = backgroundImage.image?.withAlpha(0.5)
-//        let templateImage = backgroundImage.image?.withRenderingMode(.alwaysTemplate)
-//        backgroundImage.image = templateImage.bl
-//        backgroundImage.tintColor = color.withAlphaComponent(0.5)
-        
-        
-        //backgroundImage.alpha = 0.3
-        //backgroundImage.setImageColor(color: UIColor.red)
-        //backgroundImage.tintColor = UIColor(named: "red")
-        
-        
-        //backgroundImage.alpha = 0.4
+        backgroundImage.image = backgroundImage.image?.withAlpha(0.2)
         
         suscrpitionBtn.layer.cornerRadius = 25
         suscrpitionBtn.layer.masksToBounds = true
-        suscrpitionBtn.titleLabel?.font = UIFont(name: "Arial", size: 26.0)
+//        self.suscrpitionBtn.titleLabel?.font = UIFont(name:"Kailasa-Bold", size: 26.0)
+//        self.suscrpitionBtn.setNeedsDisplay()
+        
         if let shows = AppDelegate.getUserDefaultArrayStringForKey("moviesStored"){
             if shows.contains(show?.name ?? "-"){
                 suscrpitionBtn.setTitle("SUSCRIPTO", for: .normal)
@@ -98,25 +86,84 @@ class DetailViewController: UIViewController{
         
     }
     
-    override func viewDidLayoutSubviews() {
-        descriptionLable.sizeToFit()
-    }
+    public var completionHandler:(()->Void)?
+        
     
     @IBAction func backBtn(_ sender: Any) {
-        self.dismiss(animated: false, completion: nil)
+        self.completionHandler?()
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func suscriptBtn(_ sender: Any) {
+        AppDelegate.userDefaultAlreadyExist("moviesStored") ? searchTitleStored() : createMovieStoreAndAppend()
     }
     
-}
+    func searchTitleStored() {
+        let arrayDefault = getArrayUserDefault()
+        let text = self.titleLabel.text!
+        let elem = arrayDefault?.filter({ $0.contains(text)})
+        (elem?.count ?? Int() > 0) ? removeTitle() : checkTitleOrEmpty()
+        UserDefaults.standard.synchronize()
+    }
+    
+    func createMovieStoreAndAppend() {
+        updateUserDefaultWith([String]())
+        let elem = self.titleLabel.text ?? String()
+        var arrayUserDefaults = getArrayUserDefault()
+        arrayUserDefaults?.append(elem)
+        updateUserDefaultWith(arrayUserDefaults ?? [String]())
+        self.fillButton()
+    }
+    
+    func getArrayUserDefault() -> [String]? {
+        AppDelegate.getUserDefaultArrayStringForKey("moviesStored")
+    }
+    
+    func updateUserDefaultWith(_ value: [String]){
+        UserDefaults.standard.setValue(value, forKey: "moviesStored")
+    }
+    
+    func removeTitle() {
+        removeTitleFromUserDefault()
+    }
+    
+    func removeTitleFromUserDefault() {
+        var arrayDefault = getArrayUserDefault()
+        let index = arrayDefault?.firstIndex(of: self.titleLabel.text ?? String()) ?? Int()
+        arrayDefault?.remove(at: index)
+        updateUserDefaultWith(arrayDefault ?? [String]())
+        self.emptyButton()
+    }
+    
+    func checkTitleOrEmpty() {
+        if UserDefaults.standard.array(forKey: "moviesStored") != nil {
+            appendTitleToUserDefault()
+        }else {
+            createMovieStoreAndAppend()
+        }
+    }
+    
+    func fillButton(){
+        self.suscrpitionBtn.setTitle("SUSCRIPTO", for: .normal)
+        self.suscrpitionBtn.backgroundColor = .white
+        self.suscrpitionBtn.setTitleColor(color, for: .normal)
+    }
 
-extension UIImageView {
-  func setImageColor(color: UIColor) {
-    let templateImage = self.image?.withRenderingMode(.alwaysTemplate)
-    self.image = templateImage
-    self.tintColor = color
-  }
+    func emptyButton() {
+        self.suscrpitionBtn.setTitle("SUSCRIBIRME", for: .normal)
+        self.suscrpitionBtn.setTitleColor(.white, for: .normal)
+        self.suscrpitionBtn.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+        self.suscrpitionBtn.layer.borderWidth = 3.0
+        self.suscrpitionBtn.layer.borderColor = UIColor.white.cgColor
+    }
+    
+    func appendTitleToUserDefault(){
+        var arrayUserDefaults = getArrayUserDefault()
+        arrayUserDefaults?.append(self.titleLabel.text ?? String())
+        updateUserDefaultWith(arrayUserDefaults ?? [String]())
+        self.fillButton()
+    }
+    
 }
 
 extension UIImage {

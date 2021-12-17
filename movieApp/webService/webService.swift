@@ -8,18 +8,14 @@
 import Foundation
 import Alamofire
 
-//typealias ResultShowHandler = (_ pageMovie: PageShowDTO) -> Void
-//typealias ErrorHandler = (_ errorMessage: String) -> Void
-//typealias ShowHandler = (_ arrayMovies: [Show]) -> Void
-
 let aKey = "208ca80d1e219453796a7f9792d16776"
-let baseUrlForShows = "https://api.themoviedb.org/3/tv/"
+let baseUrlForShows = "https://api.themoviedb.org/3/tv/popular"
 let baseUrlForGenres = "https://api.themoviedb.org/3/genre/tv/"
 
 class APIClient{
     
     static func getMovies(page:Int, completionHandler: @escaping ([Show])->Void){
-        let request = AF.request("\(baseUrlForShows)top_rated?api_key=\(aKey)&language=en-US&page=\(page)")
+        let request = AF.request("\(baseUrlForShows)?api_key=\(aKey)&language=en-US&page=\(page)")
         request.responseData { response in
             switch response.result {
             case .success(let data):
