@@ -33,8 +33,10 @@ class ViewController: UIViewController, SearchViewControllerDelegate, DetailView
     
     // Delegate para actualizar el listado cuando cambia favorito en el detalle
     func dataChangedInDetail(str: String) {
-        self.loadShows(page: page)
-        self.collectionView.reloadData()
+        DispatchQueue.main.async {
+            self.loadShows(page: self.page)
+            self.collectionView.reloadData()
+        }
         print(str)
     }
     
@@ -53,9 +55,6 @@ class ViewController: UIViewController, SearchViewControllerDelegate, DetailView
                     if self.value.contains(i.name ?? "-"){
                         self.results.append(i)
                     }
-                    if ((i.vote_average ?? 6) > 9.5) {
-                        self.recomendedResult.append(i)
-                    }
                 }
                 self.collectionView.reloadData()
                 self.isLoadin = false
@@ -63,8 +62,6 @@ class ViewController: UIViewController, SearchViewControllerDelegate, DetailView
             self.page+=1
         }
         self.page = 1
-        print(self.results.count)
-        print(self.recomendedResult.count)
     }
    
 }
