@@ -8,7 +8,6 @@ target 'movieApp' do
   # Pods for movieApp
   pod 'Alamofire', '~> 5.4'
   pod 'Kingfisher', '~> 6.3.1'
-  pod 'UIImageColors'
   pod 'SwiftLint'
 
 end
