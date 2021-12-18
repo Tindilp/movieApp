@@ -8,7 +8,11 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+protocol SearchViewControllerDelegate {
+    func dataChangedInSearchList(str: String)
+}
+
+class SearchViewController: UIViewController, DetailViewControllerDelegate {
     
     var results:[Show] = []
     var genres:[Genre] = []
@@ -18,13 +22,24 @@ class SearchViewController: UIViewController {
     var showList = [Show]()
     var searchedShow = [Show]()
     var searching = false
+    
+    var delegate: SearchViewControllerDelegate?
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var listaShows: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        self.setSearchBar()
+        
+        listaShows.dataSource = self
+        listaShows.delegate = self
+        
+        loadMovies(page: page)
+        loadGenre()
+    }
+    
+    func setSearchBar(){
         searchBar.showsCancelButton = true
         searchBar.setValue("Cancelar", forKey: "cancelButtonText")
         
@@ -35,20 +50,25 @@ class SearchViewController: UIViewController {
         searchTextField.textColor = UIColor.white
         searchTextField.clearButtonMode = .never
         searchTextField.backgroundColor = UIColor(named: "myBlack")
-        
-        listaShows.dataSource = self
-        listaShows.delegate = self
-        
-        loadMovies(page: page)
-        loadGenre()
     }
     
+    /// obtenemos la lista de generos de cada show
     func getStringGenre( gnre:[String])-> String{
         var textGenre = ""
         for g in gnre{
             textGenre += "| \(g) |"
         }
         return textGenre
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        delegate?.dataChangedInSearchList(str: "from Search")
+    }
+    
+    // Delegate para actualizar el listado cuando cambia en el detalle
+    func dataChangedInDetail(str: String) {
+        listaShows.reloadData()
     }
     
     @IBAction func backBtnPressed(_ sender: Any) {
@@ -120,10 +140,9 @@ extension SearchViewController: UITableViewDataSource {
         let selectedShow = UIStoryboard.init(name: "Main", bundle: nil)
             .instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
         selectedShow.show = results[indexPath.row]
+        selectedShow.delegate = self
         self.present(selectedShow, animated: true, completion: nil)
     }
-    
-    
 }
 
 //MARK: - UITableViewDelegate

@@ -26,7 +26,10 @@ class SearchViewCell: UITableViewCell {
     
     override func awakeFromNib(){
         super.awakeFromNib()
-
+        self.configComponents()
+    }
+    
+    func configComponents(){
         btnAgregar.frame = CGRect(x: 100, y: 100, width: 90, height: 17)
         btnAgregar.setTitle("AGREGAR", for: UIControl.State.normal)
         btnAgregar.setTitleColor(UIColor(named: "myGray"), for: UIControl.State.normal)
@@ -43,12 +46,15 @@ class SearchViewCell: UITableViewCell {
     }
     
     func configure (for show:Show, gnre:[String]){
-                
+        
+        /// configuramos el titulo del show en la celda
         titleShow.text = show.name
       
+        /// configuramos la lista de generosn la celda
         let gen = controller.getStringGenre(gnre: gnre)
         descriptionShow.text = gen
         
+        /// configuramos la imagen de cada show
         let poster = "\(strUrl)\(show.poster_path ?? " ")"
         if let imageUrl = URL(string: poster){
                    imgShow.kf.setImage(with: imageUrl)

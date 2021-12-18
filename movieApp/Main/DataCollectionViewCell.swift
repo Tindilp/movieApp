@@ -21,6 +21,7 @@ class DataCollectionViewCell: UICollectionViewCell {
         image.clipsToBounds = true
     }
 
+    /// Configurmos la celda de la pantalla principal con solo el poster de los show marcados como favoritos
     func configure (for show:Show){
                 
         let poster = "\(strUrl)\(show.poster_path ?? " ")"
