@@ -9,20 +9,24 @@ import Foundation
 import Alamofire
 
 let aKey = "208ca80d1e219453796a7f9792d16776"
-let baseUrlForShows = "https://api.themoviedb.org/3/tv/popular"
-let baseUrlForGenres = "https://api.themoviedb.org/3/genre/tv/"
+
+let baseURL = "https://api.themoviedb.org/3/"
+
+let baseUrlForShows = "tv/popular?api_key="
+let baseUrlForGenres = "genre/tv/list?api_key="
+
+let lenguageURL = "&language=en-US&"
 
 class APIClient{
     
     static func getMovies(page:Int, completionHandler: @escaping ([Show])->Void){
-        let request = AF.request("\(baseUrlForShows)?api_key=\(aKey)&language=en-US&page=\(page)")
+        let request = AF.request("\(baseURL)\(baseUrlForShows)\(aKey)\(lenguageURL)page=\(page)")
         request.responseData { response in
             switch response.result {
             case .success(let data):
                 do {
                 let page = try JSONDecoder().decode(ShowPage.self, from: data)
                 completionHandler(page.results )
-                //print(page.results)
                 } catch let error {
                     print("Unable to load data: \(error)")
                 }
@@ -33,14 +37,13 @@ class APIClient{
     }
 
     static func getGenre(completionHandler: @escaping ([Genre])->Void){
-        let request = AF.request("\(baseUrlForGenres)list?api_key=\(aKey)&language=en-US")
+        let request = AF.request("\(baseURL)\(baseUrlForGenres)\(aKey)\(lenguageURL)")
         request.responseData { response in
             switch response.result {
             case .success(let data):
                 do {
                 let page = try JSONDecoder().decode(Genres.self, from: data)
                 completionHandler(page.genres)
-                //print(page.genres)
                 } catch let error {
                     print("Unable to load data: \(error)")
                 }

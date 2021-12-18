@@ -11,7 +11,7 @@ struct Genre: Codable {
     
     var id: Int?
     var name: String?
-    
+
 }
 
 struct Genres: Codable {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, SearchViewControllerDelegate, DetailViewControllerDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -17,41 +17,44 @@ class ViewController: UIViewController {
     var page = 1
     var maxPages = 10
     var value:[String] = []
-    var isLoadingViewController = false
     let vc2 = DetailViewController()
+    
+    var recomendedResult:[Show] = []
    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-        self.isLoadingViewController = true
+        
         self.value = AppDelegate.getUserDefaultArrayStringForKey("moviesStored") ?? []
-        self.loadMovies(page: page)
+        self.loadShows(page: page)
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//           super.viewWillAppear(animated)
-//           print("aca")
-//           vc2.completionHandler = { [weak self] () -> Void in
-//               self!.loadMovies(page: 1)
-//            }
-//            collectionView.reloadData()
-////            if isLoadingViewController {
-////                        isLoadingViewController = false
-////            } else {
-////                loadMovies(page: 1)
-////            }
-//        }
+    // Delegate para actualizar el listado cuando cambia favorito en el detalle
+    func dataChangedInDetail(str: String) {
+        self.loadShows(page: page)
+        self.collectionView.reloadData()
+        print(str)
+    }
     
-    private func loadMovies(page: Int){
+    func dataChangedInSearchList(str: String) {
+        self.loadShows(page: page)
+        self.collectionView.reloadData()
+        print(str)
+    }
+    
+    // cargamos los shows que fueron seleccionados como favoritos
+    private func loadShows(page: Int){
         isLoadin = true
         while (results.count < value.count) && (self.page < self.maxPages) {
             APIClient.getMovies(page:self.page, completionHandler:{ show in
                 for i in show {
                     if self.value.contains(i.name ?? "-"){
                         self.results.append(i)
+                    }
+                    if ((i.vote_average ?? 6) > 9.5) {
+                        self.recomendedResult.append(i)
                     }
                 }
                 self.collectionView.reloadData()
@@ -60,22 +63,10 @@ class ViewController: UIViewController {
             self.page+=1
         }
         self.page = 1
+        print(self.results.count)
+        print(self.recomendedResult.count)
     }
-    
-    @IBAction func verUsr(_ sender: Any) {
-        
-        if let value = AppDelegate.getUserDefaultArrayStringForKey("moviesStored"){
-       
-           print(value)
-        } else{
-            print("error")
-        }
-    }
-    
-    @IBAction func searchBtnPressed(_ sender: Any) {
-        
-    }
-    
+   
 }
 
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -94,6 +85,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
         let selectedShow = UIStoryboard.init(name: "Main", bundle: nil)
             .instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
         selectedShow.show = results[indexPath.row]
+        selectedShow.delegate = self
         self.present(selectedShow, animated: true, completion: nil)
     }
     
@@ -103,7 +95,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
                 return
             }
             page+=1
-            loadMovies(page: page)
+            loadShows(page: page)
         }
     }
     
