@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 protocol DetailViewControllerDelegate {
     func dataChangedInDetail(str: String)

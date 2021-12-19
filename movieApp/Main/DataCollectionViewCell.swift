@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class DataCollectionViewCell: UICollectionViewCell {
     
@@ -19,6 +20,7 @@ class DataCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         image.layer.cornerRadius = 15
         image.clipsToBounds = true
+        
     }
 
     /// Configurmos la celda de la pantalla principal con solo el poster de los show marcados como favoritos
