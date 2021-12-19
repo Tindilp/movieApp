@@ -21,6 +21,7 @@
 		CB645A73276643B4008765F9 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB645A72276643B4008765F9 /* Genre.swift */; };
 		CB645A772766502E008765F9 /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB645A762766502E008765F9 /* SearchViewCell.swift */; };
 		CB8071F0276C3A1400C192D6 /* DataCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8071EF276C3A1400C192D6 /* DataCollectionViewCell.swift */; };
+		CBE31F44276EA0C300560AF5 /* RecomendedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE31F43276EA0C300560AF5 /* RecomendedCollectionViewCell.swift */; };
 		CBFA1BB22769AA5D0017689D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFA1BB12769AA5D0017689D /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		CB645A72276643B4008765F9 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		CB645A762766502E008765F9 /* SearchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
 		CB8071EF276C3A1400C192D6 /* DataCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCollectionViewCell.swift; sourceTree = "<group>"; };
+		CBE31F43276EA0C300560AF5 /* RecomendedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecomendedCollectionViewCell.swift; sourceTree = "<group>"; };
 		CBFA1BB12769AA5D0017689D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -150,6 +152,7 @@
 			children = (
 				CB645A50276626CC008765F9 /* ViewController.swift */,
 				CB8071EF276C3A1400C192D6 /* DataCollectionViewCell.swift */,
+				CBE31F43276EA0C300560AF5 /* RecomendedCollectionViewCell.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 			files = (
 				CBFA1BB22769AA5D0017689D /* DetailViewController.swift in Sources */,
 				CB645A51276626CC008765F9 /* ViewController.swift in Sources */,
+				CBE31F44276EA0C300560AF5 /* RecomendedCollectionViewCell.swift in Sources */,
 				CB645A6F276640BA008765F9 /* webService.swift in Sources */,
 				CB645A4D276626CC008765F9 /* AppDelegate.swift in Sources */,
 				CB8071F0276C3A1400C192D6 /* DataCollectionViewCell.swift in Sources */,

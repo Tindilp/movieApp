@@ -8,16 +8,16 @@
 import Foundation
 import Alamofire
 
-let aKey = "208ca80d1e219453796a7f9792d16776"
+private let aKey = "208ca80d1e219453796a7f9792d16776"
 
-let baseURL = "https://api.themoviedb.org/3/"
+private let baseURL = "https://api.themoviedb.org/3/"
 
-let baseUrlForShows = "tv/popular?api_key="
-let baseUrlForGenres = "genre/tv/list?api_key="
+private let baseUrlForShows = "tv/popular?api_key="
+private let baseUrlForGenres = "genre/tv/list?api_key="
 
-let lenguageURL = "&language=en-US&"
+private let lenguageURL = "&language=en-US&"
 
-class APIClient{
+struct APIClient{
     
     static func getMovies(page:Int, completionHandler: @escaping ([Show])->Void){
         let request = AF.request("\(baseURL)\(baseUrlForShows)\(aKey)\(lenguageURL)page=\(page)")
