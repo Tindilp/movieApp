@@ -16,7 +16,6 @@ class RecomendedCollectionViewCell: UITableViewCell {
     @IBOutlet weak var colorTintImage: UIImageView!
     @IBOutlet weak var genreLbl: UILabel!
     
-    
     var strUrl:String = "https://image.tmdb.org/t/p/w500"
     
     override func awakeFromNib(){
@@ -26,7 +25,6 @@ class RecomendedCollectionViewCell: UITableViewCell {
         let selectedView = UIView()
         selectedView.backgroundColor = .darkGray
         self.selectedBackgroundView = selectedView
-        
 
         self.imagePoster.layer.cornerRadius = 15
         imagePoster.clipsToBounds = true
